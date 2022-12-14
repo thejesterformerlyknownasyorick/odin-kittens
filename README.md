@@ -1,0 +1,1 @@
+API practice application to retrieve data (about kitties!) from Flickr API, per project outline found at https://www.theodinproject.com/lessons/ruby-on-rails-kittens-api
