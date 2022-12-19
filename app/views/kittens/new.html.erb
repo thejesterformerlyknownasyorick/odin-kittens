@@ -1,0 +1,15 @@
+<h1>Make a kitty!</h1>
+
+<%= form_with model: @kitten do |f| %>
+    <div>
+        <%= f.label :name, "Name: " %>
+        <%= f.text_field :name %><br><br>
+        <%= f.label :age, "Age: "%>
+        <%= f.text_field :age %><br><br>
+        <%= f.label :cuteness, "Cuteness: " %>
+        <%= f.select :cuteness, (0..10) %><br><br>
+        <%= f.label :softness, "Softness: " %>
+        <%= f.select :softness, (0..10) %><br><br>
+        <%= submit_tag "Make the kitty" %>
+    </div>
+<% end %>

@@ -2,6 +2,11 @@ class KittensController < ApplicationController
 
     def index
         @kittens = Kitten.all
+
+        respond_to do |format|
+            format.html
+            format.json { render :json => @kittens }
+        end
     end
     
     def new
@@ -14,19 +19,27 @@ class KittensController < ApplicationController
         if @kitten.save
             redirect_to @kitten
         else
-            flash[:error] = "Uh-oh. You failed to create a cat."
+            flash[:notice] = "Uh-oh. You failed to create a cat."
             render :new, status: :unprocessable_entity
         end
     end
 
     def show
         @kitten = Kitten.find(params[:id])
+
+        respond_to do |format|
+            format.html
+            format.json { render :json => @kitten }
+        end
     end
 
     def destroy
-        @kitten.destroy
+        @kitten = Kitten.find(params[:id])
+        if @kitten.present?
+            @kitten.destroy
+        end
         flash[:notice] = "You destroyed a kitten?? You're going to internet jail."
-        redirect_to jail_path
+        redirect_to root_path
     end
 
     def edit
@@ -34,12 +47,12 @@ class KittensController < ApplicationController
     end
 
     def update
-        @kitten = Kitten.find(paramd[:id])
+        @kitten = Kitten.find(params[:id])
         if @kitten.update(kitten_params)
-            flash[:success] = "Kitten updated"
+            flash[:alert] = "Kitten updated"
             redirect_to @kitten
         else
-            flash[:error] = "Could not update kitten. Maybe it's had all its shots."
+            flash[:notice] = "Could not update kitten. Maybe it's had all its shots."
             render :new, status: :unprocessable_entity
         end
     end
